@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - npm install -g hexo-cli
+      - npm install
+      - apt-get update
+      - apt-get install -y awscli
+
+  build:
+    commands:
+      - hexo generate
+
+  post_build:
+    commands:
+      - cd public/ && aws s3 sync . s3://jonkyops.com/
