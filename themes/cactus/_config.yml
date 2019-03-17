@@ -16,7 +16,7 @@ direction: ltr
 nav:
   home: /
   articles: /archives/
-  projects: projects_url
+  projects: http://github.com/jonkyops
   about: /about/
 
 # Links to your social media accounts.
