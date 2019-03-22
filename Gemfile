@@ -29,6 +29,9 @@ group :jekyll_plugins do
   gem "jekyll-toc"
 end
 
+# fixing vulnerability
+gem "activesupport", ">= 4.1.11"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
