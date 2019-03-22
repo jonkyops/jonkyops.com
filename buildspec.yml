@@ -4,6 +4,7 @@ phases:
   install:
     commands:
       - gem install bundler
+      - gem update --system
       - bundle install
       - apt-get install -y awscli
   build:
