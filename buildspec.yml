@@ -1,17 +1,15 @@
-version: 0.2
+version: 0.3
 
 phases:
   install:
     commands:
-      - npm install -g hexo-cli
-      - npm install
-      - apt-get update
+      - gem install bundler
+      - bundle install
       - apt-get install -y awscli
-
   build:
     commands:
-      - hexo generate
-
+      - bundle exec jekyll build
   post_build:
     commands:
-      - cd public/ && aws s3 sync . s3://jonkyops.com/ --delete
+      - aws s3 sync --delete _site/ s3://jonkyops.com/
+      - aws cloudfront create-invalidation --distribution-id E382WQ7KSXGBPG --paths '/*'

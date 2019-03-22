@@ -1,83 +1,174 @@
-# Hexo Configuration
-## Docs: https://hexo.io/docs/configuration.html
-## Source: https://github.com/hexojs/hexo/
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 
-# Site
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
 title: JonkyOps
-subtitle: DevOps and AWS tutorials
-description: Thoughts and tutorials for devops, AWS, and security-related things
-keywords: devops, aws, security, cloud
-author: Chris Blake
-language: en
+email: chrisbblake@gmail.com
+name: "Chris Blake"
+description: >- # this means to ignore newlines until "baseurl:"
+  Thoughts and tutorials for devops, AWS, and security-related things.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://jonkyops.com" # the base hostname & protocol for your site, e.g. http://example.com
+# twitter_username: jekyllrb
+github_username: jonkyops
+repository: "jonkyops/jonkyops.com"
+
+local: en-US
+
+# Reading Files
+include:
+  - .htaccess
+  - _pages
+exclude:
+  - "*.sublime-project"
+  - "*.sublime-workspace"
+  - vendor
+  - .asset-cache
+  - .bundle
+  - .jekyll-assets-cache
+  - .sass-cache
+  - assets/js/plugins
+  - assets/js/_main.js
+  - assets/js/vendor
+  - Capfile
+  - CHANGELOG
+  - config
+  - Gemfile
+  - Gruntfile.js
+  - gulpfile.js
+  - LICENSE
+  - log
+  - node_modules
+  - package.json
+  - Rakefile
+  - README
+  - tmp
+keep_files:
+  - .git
+  - .svn
+encoding: "utf-8"
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
+
+# Build settings
+markdown: kramdown
+theme: minimal-mistakes-jekyll
+minimal_mistakes_skin: dark
+breadcrumbs: true
+
+# comments
+comments:
+  provider: "disqus"
+  disqus:
+    shortname: "jonkyops"
+
+# search
+search: true
+search_full_content: true
+search_provider: algolia
+algolia:
+  application_id: 1EOJBNMMUW
+  index_name: prod_jonkyops
+  search_only_api_key: 6bacf6f66ad24d4a4bf75d96dd235d22
+  files_to_exlude:
+    - index.html
+    - index.md
+    - _pages/404.md
+    - _pages/articles.md
+
+# author info
+author:
+  name: "Chris Blake"
+  avatar: "/assets/images/bio-photo.jpg"
+  bio: "AWS and DevOps enthusiast. DevOps Lead at Travisoft."
+  location: "Houston, TX"
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/jonkyops"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://linkedin.com/in/cbblake"
+
+# Site Footer
+footer:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/jonkyops"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://linkedin.com/in/cbblake"
+
+# Defaults
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      author_profile: true
+      read_time: true
+      layout: single
+      breadcrumbs:
+        - label: "articles"
+          url: /articles/
+      comments: true
+      share: true
+      related: true
+      toc: true
+      toc_label: "Contents"
+      toc_icon: "cog"
+  # _pages
+  - scope:
+      author_profile: true
+      path: _pages
+      type: pages
+    values:
+      layout: single
+
+# Outputting
+permalink: /:categories/:title/
+paginate: 5 # amount of posts to show
+paginate_path: /page:num/
 timezone: America/Chicago
 
-# URL
-## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://jonkyops.com
-root: /
-permalink: :year/:month/:day/:title/
-permalink_defaults:
+# Plugins
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jemoji
+  - jekyll-include-cache
 
-# Directory
-source_dir: source
-public_dir: public
-tag_dir: tags
-archive_dir: archives
-category_dir: categories
-code_dir: downloads/code
-i18n_dir: :lang
-skip_render:
+# Archives
+category_archive:
+  type: jekyll-archives
+  path: /categories/
+tag_archive:
+  type: jekyll-archives
+  path: /tags/
+  layouts:
+    category: archive-taxonomy
+    tag: archive-taxonomy
+  permalinks:
+    category: /categories/:name/
+    tag: /tags/:name/
 
-# Writing
-new_post_name: :title.md # File name of new posts
-default_layout: post
-titlecase: true # Transform title into titlecase
-external_link: true # Open external links in new tab
-filename_case: 0
-render_drafts: false
-post_asset_folder: true
-relative_link: false
-future: true
-highlight:
-  enable: true
-  line_number: true
-  auto_detect: true
-  tab_replace: true
-marked:
-  gfm: true
-
-# Home page setting
-# path: Root path for your blogs index page. (default = '')
-# per_page: Posts displayed per page. (0 = disable pagination)
-# order_by: Posts order. (Order by date descending by default)
-index_generator:
-  path: ""
-  per_page: 10
-  order_by: -date
-
-# Category & Tag
-default_category: uncategorized
-category_map:
-tag_map:
-
-# Date / Time format
-## Hexo uses Moment.js to parse and display date
-## You can customize the date format as defined in
-## http://momentjs.com/docs/#/displaying/format/
-date_format: YYYY-MM-DD
-time_format: HH:mm:ss
-
-# Pagination
-## Set per_page to 0 to disable pagination
-per_page: 10
-pagination_dir: page
-
-# Extensions
-## Plugins: https://hexo.io/plugins/
-## Themes: https://hexo.io/themes/
-theme: cactus
-
-# Deployment
-## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  type:
+# HTML Compression
+# - http://jch.penibelst.de/
+compress_html:
+  clippings: all
+  ignore:
+    envs: development
