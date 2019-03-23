@@ -4,7 +4,6 @@ phases:
   install:
     commands:
       - bundle install
-      - apt-get install -y awscli
   build:
     commands:
       - bundle exec jekyll build
