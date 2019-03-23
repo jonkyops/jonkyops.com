@@ -3,7 +3,6 @@ version: 0.2
 phases:
   install:
     commands:
-      - gem update --system
       - bundle install
       - apt-get install -y awscli
   build:
