@@ -6,8 +6,8 @@ env:
     LANG: "en_US.UTF-8"
     LANGUAGE: "en_US.UTF-8"
   parameter-store:
-    SITE_BUCKET_URL: "siteBucketUrl"
-    DISTRIBUTION_ID: "distributionId"
+    SITE_BUCKET_URL: "codebuild-siteBucketUrl"
+    DISTRIBUTION_ID: "codebuild-distributionId"
 
 phases:
   install:
