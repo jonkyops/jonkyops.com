@@ -120,6 +120,7 @@ defaults:
       author_profile: true
       read_time: true
       layout: single
+      classes: wide
       breadcrumbs:
         - label: "articles"
           url: /articles/
@@ -136,6 +137,7 @@ defaults:
       type: pages
     values:
       layout: single
+      classes: wide
 
 # Outputting
 permalink: /:categories/:title/
