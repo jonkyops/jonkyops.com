@@ -43,23 +43,22 @@ They go into further detail on how to fix the issue using Lambda@Edge to rewrite
 
 Let's put this fix in, onto the Terraform configs!
 
-### Getting it Done with Terraform
+## Getting it Done with Terraform
 
-We'll start by creating a file for the Lambda@Edge function they use in their article for handling the rewrites:
+We'll start by creating a file for the Lambda@Edge function they use in their article for handling the rewrites.
 
 index.js:
-
-{% gist 53e61471b9ae6b38f5df7e3d1b87af47 %}
+{% gist 53e61471b9ae6b38f5df7e3d1b87af47 index.js %}
 
 Now the lambda itself.
 
 lambda.tf:
-{% gist c16383d1a971a48862143cf88de24e98 %}
+{% gist 53e61471b9ae6b38f5df7e3d1b87af47 lambda.tf %}
 
-And this is a very truncated version of the cloudfront resource, including the important parts for setting the OAI and Lambda@Edge function:
+And this is a very truncated version of the cloudfront resource, including the important parts for setting the OAI and Lambda@Edge function.
 
 cloudfront.tf:
-{% gist 96f4af7392e40d461c749bed1e02a39f cloudfront.tf %}
+{% gist 53e61471b9ae6b38f5df7e3d1b87af47 cloudfront.tf %}
 
 After a quick-ish `terraform apply` (CloudFront might take a few minutes), our Lambda@Edge function is ready to go.
 
@@ -69,13 +68,13 @@ Let's try it out:
 
 Success!
 
-### Conclusion
+## Conclusion
 
 This was just a small fix for a static site, so I'm barely scratching the surface with what Lambda@Edge can do, especially around request manipulation. Being able to run code almost anywhere in the world with little setup is incredibly useful for performance and security.
 
 Join me next time and I'll go over the steps I used to set up this site.
 
-### Links
+## Links
 
 - <https://aws.amazon.com/blogs/compute/implementing-default-directory-indexes-in-amazon-s3-backed-amazon-cloudfront-origins-using-lambdaedge/>
 - <http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html>
