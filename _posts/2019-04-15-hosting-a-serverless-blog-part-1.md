@@ -23,7 +23,7 @@ One thing to note is that I am setting this up with the major pieces broken down
 
 ## Setting up the infrastructure
 
-Let's start by laying down the pieces that will actually host the site, which will be under "modules/site". What we're going for is using CloudFront to serve out our serverless site, so we'll need:
+Let's start by laying down the pieces that will actually host the site, which will be under "/modules/serverless_site". What we're going for is using CloudFront to serve out our serverless site, so we'll need:
 
 - Buckets for logging and hosting the site
 - The CloudFront distribution
@@ -32,61 +32,61 @@ Let's start by laying down the pieces that will actually host the site, which wi
 - DNS to point the domain to our CloudFront distribution
 - SSM params with the IDs of the bucket/CloudFront distribution for the build pipeline to use
 
-Since the site portion of the configurations are going to be in their own module, start working in /module/site.
+Since the site portion of the configurations are going to be in their own module, start working in /modules/serverless_site.
 
 Create our variables file:
 
-/modules/site/variables.tf:
+/modules/serverless_site/variables.tf:
 {% gist d703c67b34303fee9b7779167d284d51 variables.tf %}
 
 Obviously you'll want to change that out for your own domain name.
 
 We're going to make an origin access identity for CloudFront to access the bucket hosting the website, that way we can lock the bucket down and make sure everyone is accessing it through the CDN.
 
-/modules/site/cloudfront.tf:
+/modules/serverless_site/cloudfront.tf:
 {% gist d703c67b34303fee9b7779167d284d51 cloudfront_1.tf %}
 
 Now we need to set up the domain in Route53, along with creating a certificate for SSL, which includes creating the certificate validation record in Route53 as well.
 
-/modules/site/domain.tf:
+/modules/serverless_site/domain.tf:
 {% gist d703c67b34303fee9b7779167d284d51 domain.tf %}
 
 Next, the buckets for logging and hosting the site. You'll probably notice I'm using the 'bucket_prefix' property instead of 'bucket', this lets you always get a unique bucket name. The bucket name doesn't matter too much, since you would normally have a R53 record pointing to it and only CloudFront will be accessing it anyway.
 
-/modules/site/s3.tf:
+/modules/serverless_site/s3.tf:
 {% gist d703c67b34303fee9b7779167d284d51 s3.tf %}
 
 Policy for the bucket, which should only allow read from the cloudfront origin access identity we made earlier.
 
-/modules/site/iam.tf:
+/modules/serverless_site/iam.tf:
 {% gist d703c67b34303fee9b7779167d284d51 iam.tf %}
 
 The lambda function for handling the html files in subfolders. Here's the javascript, which will be packaged up when we run terraform deploy.
 
-/modules/site/index.js:
+/modules/serverless_site/index.js:
 {% gist 53e61471b9ae6b38f5df7e3d1b87af47 index.js %}
 
 The configuration for packaging and creating the lambda function:
 
-/modules/site/lambda.tf:
+/modules/serverless_site/lambda.tf:
 {% gist 53e61471b9ae6b38f5df7e3d1b87af47 lambda.tf %}
 
 Now we're ready to create the CloudFront distribution. This will point back to our site bucket as the origin, using the origin access identity we created before. Update the cloudfront.tf file:
 
-/modules/site/cloudfront.tf:
+/modules/serverless_site/cloudfront.tf:
 {% gist d703c67b34303fee9b7779167d284d51 cloudfront_2.tf %}
 
 As part of our build for the serverless site, we'll need two parameters to be available in SSM; One for the S3 bucket to upload the static files to and one for CloudFront distribution ID to invalidate cached files.
 
-/modules/site/ssm.tf:
+/modules/serverless_site/ssm.tf:
 {% gist d703c67b34303fee9b7779167d284d51 ssm.tf %}
 
 And last, some outputs.
 
-/modules/site/outputs.tf:
+/modules/serverless_site/outputs.tf:
 {% gist d703c67b34303fee9b7779167d284d51 outputs.tf %}
 
-Now the site module is done, so let's go back to the root of the project (would be / where we were working in /modules/site before). Let's create the variables file and include the variable for the site module.
+Now the site module is done, so let's go back to the root of the project (would be / where we were working in /modules/serverless_site before). Let's create the variables file and include the variable for the site module.
 
 /variables.tf:
 {% gist 5f8017202e1fe425a081edc4b2e86786 variables.tf %}
