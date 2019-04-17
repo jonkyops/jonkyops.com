@@ -114,7 +114,7 @@ footer:
 defaults:
   # _posts
   - scope:
-      path: ""
+      path: _posts
       type: posts
     values:
       author_profile: true
@@ -161,6 +161,10 @@ category_archive:
 tag_archive:
   type: jekyll-archives
   path: /tags/
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
   layouts:
     category: archive-taxonomy
     tag: archive-taxonomy
