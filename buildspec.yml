@@ -5,6 +5,7 @@ env:
     LC_ALL: "C.UTF-8"
     LANG: "en_US.UTF-8"
     LANGUAGE: "en_US.UTF-8"
+    JEKYLL_ENV: production
   parameter-store:
     SITE_BUCKET_URL: "/codebuild/jonkyops.com/siteBucketUrl"
     DISTRIBUTION_ID: "/codebuild/jonkyops.com/distributionId"
