@@ -17,8 +17,8 @@ phases:
   build:
     commands:
       - bundle exec jekyll build
-      - bundle exec jekyll algolia
   post_build:
     commands:
+      - bundle exec jekyll algolia
       - aws s3 sync --delete _site/ s3://$SITE_BUCKET_URL/
       - aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths '/*'
