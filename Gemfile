@@ -25,7 +25,8 @@ group :jekyll_plugins do
   gem "jekyll-paginate"
   gem "jekyll-include-cache"
   gem "jekyll-algolia"
-  gem "jekyll-archives"
+  # 2.2.1 was breaking algolia https://github.com/algolia/jekyll-algolia/issues/121
+  gem "jekyll-archives", "2.1.1"
   gem "jekyll-toc"
 end
 
